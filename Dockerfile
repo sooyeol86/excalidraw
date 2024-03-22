@@ -2,16 +2,20 @@ FROM node:18 AS build
 
 WORKDIR /opt/node_app
 
+RUN yarn config set "strict-ssl" false
+
 COPY package.json yarn.lock ./
 RUN yarn
 
-ARG NODE_ENV=production
+#ARG NODE_ENV=production
 
 COPY . .
 
 WORKDIR /opt/node_app/excalidraw-app
 RUN yarn
-ARG NODE_ENV=production
+
+#ARG NODE_ENV=production
+
 RUN yarn build:app:docker
 
 FROM nginx:1.21-alpine

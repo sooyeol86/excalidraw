@@ -49,7 +49,7 @@ const ExcalidrawBase = (props: ExcalidrawProps) => {
     children,
     validateEmbeddable,
     renderEmbeddable,
-    aiEnabled,
+    aiEnabled= false,
   } = props;
 
   const canvasActions = props.UIOptions?.canvasActions;
