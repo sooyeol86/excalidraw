@@ -2,7 +2,8 @@ import React from "react";
 import { Card } from "../../packages/excalidraw/components/Card";
 import { ToolButton } from "../../packages/excalidraw/components/ToolButton";
 import { serializeAsJSON } from "../../packages/excalidraw/data/json";
-import { loadFirebaseStorage, saveFilesToFirebase } from "../data/firebase";
+import { loadFirebaseStorage } from "../data/firebase";
+import { getStorageBackend } from "../data/config";
 import {
   FileId,
   NonDeletedExcalidrawElement,
@@ -73,7 +74,8 @@ export const exportToExcalidrawPlus = async (
       maxBytes: FILE_UPLOAD_MAX_BYTES,
     });
 
-    await saveFilesToFirebase({
+    const storageBackend = await getStorageBackend();
+    await storageBackend.saveFilesToStorageBackend({
       prefix: `/migrations/files/scenes/${id}`,
       files: filesToUpload,
     });
